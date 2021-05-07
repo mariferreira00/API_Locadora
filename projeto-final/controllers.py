@@ -15,7 +15,7 @@ def inserir_diretor():
     diretor = diretor_from_web(**request.json)
     if validacao_diretor(**diretor):
         insert_diretor(**diretor)
-        # diretor_inserido = get_diretor(diretor["nome_completo"])
+        
         return jsonify(diretor_from_db(diretor))
     else:
         return jsonify({"erro": "Diretor Inválido."})
