@@ -1,3 +1,5 @@
+from models import get_diretor, get_genero, get_filme, get_usuario
+
 def validacao_diretor(nome_completo):
 
     if len(nome_completo) == 0:

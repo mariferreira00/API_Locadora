@@ -1,12 +1,5 @@
 from mysql.connector import connect
 
-"""CONFIGURACOES_BD = {
-    "host":"localhost",
-    "user":"root",
-    "password":"zyzz1245",
-    "database":"locadora",
-}"""
-
 def execute(sql, params=None):
     with connect(host="localhost", user="root", password="root", database="locadora") as conn:
         with conn.cursor() as cursor:
@@ -35,9 +28,9 @@ def update(tabela, chave, valor_chave, colunas, valores):
     execute(f"""UPDATE {tabela} SET {",".join(sets)} WHERE {chave} = %s""", valores + [valor_chave])
 
 
-def select(tabela, chave=1, valor_chave=1, limit=100, offset=0):
-    return query(f"""SELECT * FROM {tabela} WHERE {chave} = %s LIMIT {limit} offset {offset}""", (valor_chave,))
+def select(tabela, chave, valor_chave):
+    return query(f"SELECT * FROM {tabela} WHERE {chave} = %s", (valor_chave,))
 
 
-def select_like(tabela, chave=1, valor_chave=1, limit=100, offset=0):
-    return query(f"""SELECT * FROM {tabela} WHERE {chave} LIKE %s LIMIT {limit} offset {offset}""", (f"%{valor_chave}%",))
+def select_like(tabela, chave, valor_chave):
+    return query(f"SELECT * FROM {tabela} WHERE {chave} LIKE %s", (valor_chave,))
