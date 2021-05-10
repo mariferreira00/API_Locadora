@@ -79,3 +79,36 @@ def select_filme(titulo, ano, classificacao, preco, diretores_id, generos_id):
 
 def select_usuario(nome_completo, CPF):
     return select_like("diretores", ["nome_completo", "CPF"], [f"%{nome_completo}%", f"%{CPF}%"])
+
+def insert_locacao(data_inicio, data_fim, filmes_id, id_usuario):
+    return insert("locacoes", ["data_inicio", "data_fim", "filmes_id", "id_usuario"],
+                  [data_inicio, data_fim, filmes_id, id_usuario])
+def get_locacao(id):
+    return select("locacoes", "id", id)[0]
+def select_locacao(id):
+    return select("locacoes", "id", id)
+
+def update_locacao(id, data_inicio, data_fim, filmes_id, id_usuario):
+    update("locacoes", "id", id, ["id", "data_inicio", "data_fim", "filmes_id", "id_usuario"],
+           [id, data_inicio, data_fim, filmes_id, id_usuario])
+
+def delete_locacoes(id):
+    delete("locacoes", "id", id)
+
+def insert_pagamento(tipo, status, codigo_pagamento, valor, data, locacoes_id):
+    return insert("pagamentos", ["tipo", "status", "codigo_pagamento", "valor", "data", "locacoes_id"],
+                  [tipo, status, codigo_pagamento, valor, data, locacoes_id])
+
+def get_pagamento(id):
+    return select("pagamentos", "id", id)[0]
+
+def select_pagamento(id):
+    return select_like("pagamentos", "id", id)
+
+def delete_pagamentos(id):
+    delete("pagamentos", "id", id)
+
+def update_pagamento(id, tipo, status, codigo_pagamento, valor, data, locacoes_id):
+    update("pagamentos", "id", id, ["tipo", "status", "codigo_pagamento", "valor", "data", "locacoes_id"],
+           [tipo, status, codigo_pagamento, valor, data, locacoes_id])
+
