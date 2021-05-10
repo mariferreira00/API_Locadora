@@ -31,15 +31,11 @@ def get_usuario(id):
     return select("usuarios", "id", id)
 
 def update_diretor(id, nome_completo):
-   return update("diretores", "id", id, ["nome_completo"], [nome_completo])
+   update("diretores", "id", id, ["nome_completo"], [nome_completo])
 
-
-def update_genero(id, nome):
-    return update("generos", "id", id, ["nome"], [nome])
 
 def update_genero(id, nome):
     update("generos", "id", id, ["nome"], [nome])
-
 
 def update_filme(id, titulo, ano, classificacao, preco, diretores_id, generos_id):
     update("filmes", "id", id, ["titulo", "ano", "classificacao", "preco", "diretores_id", "generos_id"], [titulo, ano, classificacao, preco, diretores_id, generos_id])
@@ -85,6 +81,7 @@ def insert_locacao(data_inicio, data_fim, filmes_id, id_usuario):
                   [data_inicio, data_fim, filmes_id, id_usuario])
 def get_locacao(id):
     return select("locacoes", "id", id)[0]
+
 def select_locacao(id):
     return select("locacoes", "id", id)
 
