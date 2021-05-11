@@ -6,8 +6,8 @@
 
 - importar o bd.sql para um banco mysql
 
-- atualizar a configuração do app.py com os dados do mysql
+- atualizar a configuração do comandos_bd.py com os dados do mysql
 
 ## Para executar o projeto
 
-`python app.py`
+`python comandos_bd.py`
