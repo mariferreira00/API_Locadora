@@ -1,13 +1,12 @@
 from flask import Flask, jsonify, request, Response
 from serializadores import diretor_from_web, diretor_from_db, genero_from_web, genero_from_db, filme_from_web, \
-    filme_from_db, usuario_from_db, usuario_from_web, delete_id_from_web, delete_id_from_db, \
+    filme_from_db, usuario_from_db, usuario_from_web, \
     locacao_from_web, locacao_from_db, id_locacoes_from_web,  pagamento_from_web, pagamento_from_db, id_pagamentos_from_web
 from validacao import validacao_diretor, validacao_genero, validacao_filme, validacao_usuario, validacao_id, validacao_pagamento, validacao_locacao
 from models import insert_diretor, insert_genero, insert_filme, insert_usuario, update_diretor, update_genero, \
     update_filme, update_usuario, delete_diretor, delete_genero, delete_filme, delete_usuario, select_diretor, \
-    get_locacao, select_locacao, update_locacao, delete_locacoes, insert_pagamento, get_pagamento, select_pagamento, update_pagamento, \
+    select_locacao, update_locacao, delete_locacoes, insert_pagamento, get_pagamento, select_pagamento, update_pagamento, \
     get_diretor, get_genero, get_filme, get_usuario, select_genero, select_filme, select_usuario, insert_locacao, get_locacao, delete_pagamentos
-from datetime import timedelta, datetime
 
 
 
@@ -19,7 +18,7 @@ def inserir_diretor():
     diretor = diretor_from_web(**request.json)
     if validacao_diretor(**diretor):
         id = insert_diretor(**diretor)
-        diretor_inserido = get_diretor(diretor[id])
+        diretor_inserido = get_diretor(id)
         return jsonify(diretor_from_db(diretor_inserido))
     else:
         return jsonify({"erro": "Diretor Inválido."})
@@ -30,7 +29,7 @@ def inserir_genero():
     genero = genero_from_web(**request.json)
     if validacao_genero(**genero):
         id = insert_genero(**genero)
-        genero_inserido = get_genero(genero[id])
+        genero_inserido = get_genero(id)
         return jsonify(genero_from_db(genero_inserido))
     else:
         return jsonify({"erro": "Ops algo deu errado ... Não foi possível inserir esse Gênero, tente novamente!"})
@@ -82,9 +81,9 @@ def alterar_genero(id):
 @app.route("/filmes/<int:id>", methods=["PUT", "PATCH"])
 def alterar_filme(id):
     filme = filme_from_web(**request.json)
-    if validacao_id(id):
+    if validacao_filme(**filme):
         update_filme(id, **filme)
-        filme_alterado = get_filme("titulo", "ano", "classificacao", "preco", "diretores_id", "generos_id")
+        filme_alterado = get_filme(id)
         return jsonify(filme_from_db(filme_alterado))
     else:
         return jsonify({"erro": "Ops algo deu errado ... Não foi possível fazer esta alteração, tente novamente!"})
@@ -100,33 +99,28 @@ def alterar_usuario(id):
 
 
 @app.route("/diretores/<int:id>", methods=["DELETE"])
-def apagar_diretor(id):
-    diretor_id = delete_id_from_web(**request.json)
+def apagar_diretores(id):
     try:
-        if validacao_id(id):
-            delete_diretor(**diretor_id)
-            return jsonify(delete_id_from_db("", 204))
+        delete_diretor(id)
+        return "", 204
     except:
         return jsonify({"erro": "Ops algo deu errado ... Não foi possível apagar o objeto selecionado!"})
 
 
 @app.route("/generos/<int:id>", methods=["DELETE"])
 def apagar_genero(id):
-    genero_id = delete_id_from_web(**request.json)
     try:
-        if validacao_id(id):
-            delete_genero(**genero_id)
-            return jsonify(delete_id_from_db(genero_id))
+        delete_genero(id)
+        return "", 204
+
     except:
         return jsonify({"erro": "Ops algo deu errado ... Não foi possível apagar o objeto selecionado!"})
 
 @app.route("/filmes/<int:id>", methods=["DELETE"])
 def apagar_filme(id):
-    filme_id = delete_id_from_web(**request.json)
     try:
-        if validacao_id(id):
-            delete_filme(**filme_id)
-            return jsonify(delete_id_from_db(filme_id))
+        delete_filme(id)
+        return "", 204
     except:
         return jsonify({"erro": "Ops algo deu errado ... Não foi possível apagar o objeto selecionado!"})
 
