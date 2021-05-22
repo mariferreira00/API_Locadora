@@ -1,6 +1,6 @@
 # Projeto final do módulo 2 da Blue (Banco de Dados)
 
-## Locadora de filmes. com CRUD de usuário, gênero e filmes. Locação vinculada a forma de pagamento bem como atribuição de um código de pagamento único geralo aleatoriamente.
+## Locadora de filmes. com CRUD de usuário, gênero e filmes. Locação vinculada a forma de pagamento bem como atribuição de um código de pagamento único gerado aleatoriamente.
 Neste projeto trabalhamos com Python, Flask e MySql. Também contamos o o auxílio do Insomnia para trabalhar com a parte de requisições HTTP.
 
 ### Instalação
